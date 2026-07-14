@@ -1,0 +1,30 @@
+\documentclass {article}
+\usepackage{graphicx, amsmath, amssymb}
+
+\title{Descrizione progetto}
+\author{Vito Mellone}
+
+\begin{document}
+
+\maketitle
+
+Per prima cosa voglio risolvere il problema di trovare un cammino 
+minimax ottimo tra due nodi \textbf{\textit{u}} e \textbf{\textit{v}}.
+Per farlo ho idea di procedere così: 
+\begin{itemize}
+    \item Individuo la componente connessa più grande 
+    \item Creo una tabella hash in cui inserire gli archi tra i nodi e i relativi pesi
+    \item Grazie alla tabella del punto precedente e una priority queue 
+            creo un algoritmo che visita ricorsivamente i nodi adiacenti, dando la
+            precedenza a quelli di costo minore, così da trovare
+            un cammino tra \textbf{\textit{u}} e \textbf{\textit{v}}
+    \item Dopo aver trovato un cammino, grazie al meccanismo della priority
+            queue so che quello é un cammino minimax: se ce ne fosse un altro
+            di costo strettamente minore dovrebbero esistere due nodi $i$, $j$ 
+            tali che il costo dell'arco $i \to j$ nel cammino é uguale del costo   
+            del cammino, ma allora ogni arco precedente e successivo ha costo minore
+            o uguale, e perciò avrebbero avuto la precedenza nella priority queue
+            e quindi questo cammino di costo minore sarebbe stato trovato prima. 
+\end{itemize}
+
+\end{document}
