@@ -85,3 +85,18 @@ vector<int> GrafoPesato::dijkstra(int source) {
     
     return dist;
 }
+
+void GrafoPesato::add_weight(int x, int y) {
+    for(int i = 0; i < (adj[x]).size() ; i++ ) {
+        if(adj[x][i].first == y){ 
+            adj[x][i].second += 1;
+            break;
+        }
+    }
+    for(int i = 0; i < (adj[y]).size() ; i++ ) {
+        if(adj[y][i].first == x){ 
+            adj[y][i].second += 1;
+            break;
+        }
+    }
+};

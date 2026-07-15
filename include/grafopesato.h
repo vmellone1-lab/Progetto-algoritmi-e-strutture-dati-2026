@@ -15,13 +15,13 @@ class GrafoPesato {
         void V_set(int v);
         void E_set(int e);
         void new_edge(int x, int y, int w);
-        void change_weight(int x, int y, int w); //da implementare 
+        void add_weight(int x, int y);
         void stampa_adj();
         vector<int> dijkstra(int source);
 
     private:
         int V, E;
-        static const int MAXN = 10000;
+        static const int MAXN = INT16_MAX;
         vector<vector<pair<int, int>>> adj;
 };
 

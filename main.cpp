@@ -8,23 +8,46 @@
 using namespace std;
 
 int main() {
+
     GrafoPesato G;
-    ifstream fin("19980101.as-rel.txt");
+    ifstream fin1("19980101.as-rel.txt");
     string riga;
     string x;
     string y;
 
-    while(getline(fin, riga)) { //qua creo il grafo settando i pesi a zero
+    while(getline(fin1, riga)) { //qua creo il grafo settando i pesi a zero
         if(riga.empty() || riga.front() == '#') {
             continue;
         }
      
-        stringstream ss(riga);
-        getline(ss, x, '|');
-        getline(ss, y, '|');
+        stringstream ss1(riga);
+        getline(ss1, x, '|');
+        getline(ss1, y, '|');
         G.new_edge(stoi(x), stoi(y), 0); 
     }
 
+    ifstream fin2("19980101.all-paths");
+  
+    if(! fin2.is_open()) {
+        cout << "errore di apertura "  << endl;
+    }
+
+    string u;
+    
+    while(getline(fin2, riga)) {
+        stringstream ss2(riga);
+        getline(ss2, y, ' '); //y contiene la prima parte che non mi serve
+        getline(ss2, x, ' '); //così x contiene il cammino BGP
+        stringstream sstemp(x);       
+        vector<int> P;
+        while(getline(sstemp, u, '|')) {
+            P.push_back(stoi(u));
+        }
+        for(int i = 0; i < P.size() - 1; i++ ) {
+            G.add_weight(P[i], P[i+1]);
+        }
+    }
+    G.stampa_adj();
 }
 
 
