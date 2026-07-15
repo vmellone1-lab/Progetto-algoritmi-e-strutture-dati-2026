@@ -9,27 +9,44 @@
 
 \maketitle
 
+\section{Inizializzazione e cammini minimax}
+
 Per prima cosa voglio risolvere il problema di trovare un cammino 
 minimax ottimo tra due nodi \textbf{\textit{u}} e \textbf{\textit{v}}.
 Per farlo ho idea di procedere così: 
-\begin{itemize}
-    \item Individuo la componente connessa più grande 
-    \item Creo una tabella hash in cui inserire gli archi tra i nodi e i relativi pesi
-    \item Grazie alla tabella del punto precedente e una priority queue 
-            creo un algoritmo che visita ricorsivamente i nodi adiacenti, dando la
-            precedenza a quelli collegati con costo minore, così da trovare
-            un cammino tra \textbf{\textit{u}} e \textbf{\textit{v}}
-    \item Dopo aver trovato un cammino tra \textbf{\textit{u}} e \textbf{\textit{v}}, grazie al meccanismo della priority
-            queue so che quello é un cammino minimax ottimo: sia $P_0 = u, x_1, ..., x_{n}, v$
-            il cammino trovato e supponiamo che il suo costo sia $M_{0}$,
-            se per assurdo esistesse un altro cammino $P_1 = u, y_1,...,y_{m},v$ di costo
-            $M_1$ tale che $M_1 < M_0$. In $P_0$ esiste un arco $x_k \to x_{k+1}$
-            di costo $M_0$ e inoltre so che $u \to y_{1}$ ha costo $c_{u \to y_{1}} \leq M_1 < M_{0} = c_{x_k \to x_{k+1}} $,
-            ma allora nell'esecuzione dell'algoritmo di ricerca l'arco
-            $u \to y_1$ avrebbe avuto la precedenza su $x_k \to x_{k+1}$ e quindi
-            il cammino $P_1$ sarebbe stato trovato prima di $P_0$
 
+\begin{enumerate}
+
+\item   Creo una classe "Grafo pesato" in cui inserire gli archi
+        tra i nodi e i relativi pesi
+\item   Individuo la componente connessa più grande
+\item   Per trovare un cammino tra \textbf{\textit{u}} e 
+        \textbf{\textit{v}} utilizzo un algoritmo ricorsivo
+        che sfrutta una priority queue: il passo base considera 
+        tutti i nodi adiacenti a \textbf{\textit{u}} e li inserisce
+        in coda dando la priorità ai cammini collegati tramite
+        archi con costo inferiore, successivamente considera
+        il nodo con priorità più alta: se é \textbf{\textit{v}}
+        interrompe il processo e restituisce il costo del cammino, 
+        altrimenti reitera considerando anche i nodi adiacenti
+        al quello attuale.
+\item   Dopo aver trovato un cammino tra \textbf{\textit{u}} e \textbf{\textit{v}}, grazie al meccanismo della priority
+        queue so che quello é un cammino minimax ottimo: sia $P_0 = u, x_1, ..., x_{n}, v$
+        il cammino trovato e supponiamo che il suo costo sia $M_{0}$,
+        se per assurdo esistesse un altro cammino $P_1 = u, y_1,...,y_{m},v$ di costo
+        $M_1$ tale che $M_1 < M_0$. In $P_0$ esiste un arco $x_k \to x_{k+1}$
+        di costo $M_0$ e inoltre so che $u \to y_{1}$ ha costo $c_{u \to y_{1}} \leq M_1 < M_{0} = c_{x_k \to x_{k+1}} $,
+        ma allora nell'esecuzione dell'algoritmo di ricerca l'arco
+        $u \to y_1$ avrebbe avuto la precedenza su $x_k \to x_{k+1}$ e quindi
+        il cammino $P_1$ sarebbe stato trovato prima di $P_0$
              
-\end{itemize}
+\end{enumerate}
 
-\end{document}\
+Al momento il costo di memorizzazione dei dati é lineare nel numero
+degli AS e dei cammini BGP, noto dall'output che il grafo é caratterizzato da
+una forte sparsità, quindi valuto la possibilità di creare una
+struttura grafo che renda più efficiente l'utilizzo della memoria
+
+
+
+\end{document}
