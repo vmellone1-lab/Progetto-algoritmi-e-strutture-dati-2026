@@ -16,15 +16,19 @@ Per farlo ho idea di procedere così:
     \item Creo una tabella hash in cui inserire gli archi tra i nodi e i relativi pesi
     \item Grazie alla tabella del punto precedente e una priority queue 
             creo un algoritmo che visita ricorsivamente i nodi adiacenti, dando la
-            precedenza a quelli di costo minore, così da trovare
+            precedenza a quelli collegati con costo minore, così da trovare
             un cammino tra \textbf{\textit{u}} e \textbf{\textit{v}}
-    \item Dopo aver trovato un cammino, grazie al meccanismo della priority
-            queue so che quello é un cammino minimax: se ce ne fosse un altro
-            di costo strettamente minore dovrebbero esistere due nodi $i$, $j$ 
-            tali che il costo dell'arco $i \to j$ nel cammino é uguale del costo   
-            del cammino, ma allora ogni arco precedente e successivo ha costo minore
-            o uguale, e perciò avrebbero avuto la precedenza nella priority queue
-            e quindi questo cammino di costo minore sarebbe stato trovato prima. 
+    \item Dopo aver trovato un cammino tra \textbf{\textit{u}} e \textbf{\textit{v}}, grazie al meccanismo della priority
+            queue so che quello é un cammino minimax ottimo: sia $P_0 = u, x_1, ..., x_{n}, v$
+            il cammino trovato e supponiamo che il suo costo sia $M_{0}$,
+            se per assurdo esistesse un altro cammino $P_1 = u, y_1,...,y_{m},v$ di costo
+            $M_1$ tale che $M_1 < M_0$. In $P_0$ esiste un arco $x_k \to x_{k+1}$
+            di costo $M_0$ e inoltre so che $u \to y_{1}$ ha costo $c_{u \to y_{1}} \leq M_1 < M_{0} = c_{x_k \to x_{k+1}} $,
+            ma allora nell'esecuzione dell'algoritmo di ricerca l'arco
+            $u \to y_1$ avrebbe avuto la precedenza su $x_k \to x_{k+1}$ e quindi
+            il cammino $P_1$ sarebbe stato trovato prima di $P_0$
+
+             
 \end{itemize}
 
 \end{document}
