@@ -145,3 +145,52 @@ vector<int> GrafoPesato::costi_minimax(int u) {
     }
     return dist;
 }
+
+GrafoPesato GrafoPesato::cc_massima() {
+    vector<bool> visited(adj.size());
+    vector<int> best;
+
+    for (int i = 1; i < adj.size(); i++) {
+        if (visited[i]) continue;
+
+        vector<int> stack;
+        vector<int> componente;
+
+        stack.push_back(i);
+
+        while (!stack.empty()) {
+            int j = stack.back();
+            stack.pop_back();
+
+            if (visited[j]) continue;
+
+            visited[j] = true;
+            componente.push_back(j);
+
+            for (auto v : adj[j]) {
+                if (!visited[v.first])
+                    stack.push_back(v.first);
+            }
+        }
+
+        if (componente.size() > best.size())
+            best = componente;
+    }
+
+    vector<int> id(adj.size(), -1);
+
+    for (int i = 0; i < best.size(); i++)
+        id[best[i]] = i + 1;
+
+    GrafoPesato T(best.size() + 1, 0);
+
+    for (int u : best) {
+        for (auto v : adj[u]) {
+            if (id[v.first] != -1 && u < v.first) {
+                T.new_edge(id[u], id[v.first], v.second);
+            }
+        }
+    }
+
+    return T;
+}

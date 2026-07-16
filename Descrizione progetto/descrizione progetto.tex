@@ -56,21 +56,33 @@ query sono:
         e di archi.
 \item   \textbf{add\_weight} serve per definire i pesi 
         degli archi in funzione dei cammini BGP,
+\item   \textbf{cc\_massima} individua la componente connessa massima del grafico 
+        rindicizzando gli archi tramite una funzione similhash in modo da ottimizzare l'uso della memoria
 \item   \textbf{costi\_minimax} trova i costi di cammini minimi tra un
         dato nodo di partenza e restituisce il vettore contenente i costi.
         Il suo algoritmo si basa sullo scheletro dell'algoritmo 
         di dijkstra svolto a lezione il cui funzionamento 
         é garantito dalla dimostrazione al punto 4.
 \end{itemize}
-Per le prime due funzioni il costo di esecuzione é O(1), mentre per \textbf{costi\_minimax} va fatta un'analisi più approfondita:
-la costruzione della priority queue e del vettore
-di \textbf{visited} costa  O(M) dove M := "id maggiore dei nodi"
-che costa log(dimensione della coda) e viene eseguito finché la coda
-non é vuota. Il numero massimo di elementi all'interno della coda,
-che é uguale al numero massimo di push che vengono eseguiti, è 
-uguale al numero degli archi E: l'utilizzo delle due guardie
-visited[x] e visited[y] assicura che il push venga eseguito al più una sola
-volta per arco, perciò ho al massimo E elementi in coda. Il costo
-totale é quindi O(M + ElogE).
+Per le prime due funzioni il costo di esecuzione é O(1). \\
+Il costo di \textbf{cc\_massima} è: O(M) dove M:= "id maggiore tra i nodi"
+per la creazione di visited.
+il ciclo for visita una volta ogni nodo grazie al vettore visited, 
+e anche i confonti tra le dimensioni delle componenti non aumentano
+la complessità. Il costo della creazione e della rindicizzazione 
+tramite il vettore id é sempre O(M), infine l'inserimento degli
+archi é O(E), quindi il costo totale è O(M + E).
+\\Per \textbf{costi\_minimax} la costruzione della priority queue 
+e del vettore 
+\textbf{visited} costa  O(V). 
+Il ciclo while esegue un .pop alla coda che costa log(dimensione
+ della coda) 
+e viene eseguito finché la coda non é vuota. Il numero massimo di 
+elementi all'interno della coda, che é uguale al numero massimo 
+di push che vengono eseguiti, è uguale al numero degli archi E: 
+l'utilizzo delle due guardie visited[x] e visited[y] assicurache 
+il push venga eseguito al più una sola volta per arco, perciò ho 
+al massimo E elementi in coda. Il costo
+totale é quindi O(V + ElogE).
 
 \end{document}

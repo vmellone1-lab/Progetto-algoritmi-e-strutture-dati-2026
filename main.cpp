@@ -49,9 +49,9 @@ int main() {
             G.add_weight(P[i], P[i+1]);
         }
     }
-    cout << "numero di nodi: " << G.get_V() << " " << "numero di archi: " << G.get_E() << endl;
-    vector<int> v = G.costi_minimax(1);
-    cout << "costo 1-> 3: " << v[3] << endl; 
+
+    G = G.cc_massima(); 
+    G.stampa_adj();
 }
 
 

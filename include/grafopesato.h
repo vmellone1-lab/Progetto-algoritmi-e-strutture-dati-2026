@@ -22,6 +22,7 @@ class GrafoPesato {
         int get_E();
         vector<vector<pair<int,int>>> get_adj();
         vector<int> costi_minimax(int u);
+        GrafoPesato cc_massima();
     private:
         int V, E;
         static const int MAXN = INT16_MAX;

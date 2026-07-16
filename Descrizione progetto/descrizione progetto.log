@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.4.15)  16 JUL 2026 17:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.4.15)  16 JUL 2026 19:24
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -165,11 +165,6 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 [1
 
 {c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-Overfull \hbox (5.83578pt too wide) in paragraph at lines 65--75
-\OT1/cmr/m/n/10 Per le prime due fun-zioni il costo di es-e-cuzione ^^Se O(1), men-tre per \OT1/cmr/bx/n/10 costi[]minimax
- []
-
-
 
 [2] (./descrizione progetto.aux)
  ***********
@@ -186,7 +181,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  57i,7n,65p,312b,236s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on "descrizione progetto.pdf" (2 pages, 149139 bytes).
+Output written on "descrizione progetto.pdf" (2 pages, 150152 bytes).
 PDF statistics:
  87 PDF objects out of 1000 (max. 8388607)
  52 compressed objects within 1 object stream
