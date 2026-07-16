@@ -1,11 +1,13 @@
 #include<iostream>
 #include<vector>
+#include<climits>
 #include<string>
 #include<fstream>
 #include<sstream>
 #include"include\grafopesato.h"
 
 using namespace std;
+auto const INF = INT_MAX;
 
 int main() {
 
@@ -47,7 +49,9 @@ int main() {
             G.add_weight(P[i], P[i+1]);
         }
     }
-    G.stampa_adj();
+    cout << "numero di nodi: " << G.get_V() << " " << "numero di archi: " << G.get_E() << endl;
+    vector<int> v = G.costi_minimax(1);
+    cout << "costo 1-> 3: " << v[3] << endl; 
 }
 
 

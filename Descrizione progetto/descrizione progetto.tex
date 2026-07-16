@@ -2,8 +2,11 @@
 \usepackage{graphicx, amsmath, amssymb}
 
 \title{Descrizione progetto}
-\author{Vito Mellone}
-\date{}
+\author{ 
+        Vito Mellone \\
+        n° matricola: 695232\\
+        Università di Pisa\\}
+\date{a.a. 2025-2026}
 
 \begin{document}
 
@@ -18,8 +21,8 @@ Per farlo ho idea di procedere così:
 \begin{enumerate}
 
 \item   Creo una classe "Grafo pesato" in cui inserire gli archi
-        tra i nodi e i relativi pesi
-\item   Individuo la componente connessa più grande
+        tra i nodi e i relativi pesi.
+\item   Individuo la componente connessa più grande.
 \item   Per trovare un cammino tra \textbf{\textit{u}} e 
         \textbf{\textit{v}} utilizzo un algoritmo ricorsivo
         che sfrutta una priority queue: il passo base considera 
@@ -38,15 +41,36 @@ Per farlo ho idea di procedere così:
         di costo $M_0$ e inoltre so che $u \to y_{1}$ ha costo $c_{u \to y_{1}} \leq M_1 < M_{0} = c_{x_k \to x_{k+1}} $,
         ma allora nell'esecuzione dell'algoritmo di ricerca l'arco
         $u \to y_1$ avrebbe avuto la precedenza su $x_k \to x_{k+1}$ e quindi
-        il cammino $P_1$ sarebbe stato trovato prima di $P_0$
+        il cammino $P_1$ sarebbe stato trovato prima di $P_0$.
              
 \end{enumerate}
+ 
+\subsection{Classe grafo pesato e funzioni ausiliarie}
+La classe GrafoPesato che ho usato é la stessa che abbiamo dichiarato
+a lezione. Le funzioni principali che ho utilizzato per questa prima
+query sono:
 
-Al momento il costo di memorizzazione dei dati é lineare nel numero
-degli AS e dei cammini BGP, noto dall'output che il grafo é caratterizzato da
-una forte sparsità, quindi valuto la possibilità di creare una
-struttura grafo che renda più efficiente l'utilizzo della memoria
-
-
+\begin{itemize}
+\item   \textbf{new\_edge} che serve per l'inserimento di nuove relazioni AS,
+        inoltre aggiorna la quantità di nodi effettivi del grafo
+        e di archi.
+\item   \textbf{add\_weight} serve per definire i pesi 
+        degli archi in funzione dei cammini BGP,
+\item   \textbf{costi\_minimax} trova i costi di cammini minimi tra un
+        dato nodo di partenza e restituisce il vettore contenente i costi.
+        Il suo algoritmo si basa sullo scheletro dell'algoritmo 
+        di dijkstra svolto a lezione il cui funzionamento 
+        é garantito dalla dimostrazione al punto 4.
+\end{itemize}
+Per le prime due funzioni il costo di esecuzione é O(1), mentre per \textbf{costi\_minimax} va fatta un'analisi più approfondita:
+la costruzione della priority queue e del vettore
+di \textbf{visited} costa  O(M) dove M := "id maggiore dei nodi"
+che costa log(dimensione della coda) e viene eseguito finché la coda
+non é vuota. Il numero massimo di elementi all'interno della coda,
+che é uguale al numero massimo di push che vengono eseguiti, è 
+uguale al numero degli archi E: l'utilizzo delle due guardie
+visited[x] e visited[y] assicura che il push venga eseguito al più una sola
+volta per arco, perciò ho al massimo E elementi in coda. Il costo
+totale é quindi O(M + ElogE).
 
 \end{document}

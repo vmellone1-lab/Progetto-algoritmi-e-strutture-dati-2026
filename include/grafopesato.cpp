@@ -42,15 +42,18 @@ void GrafoPesato::new_edge(int x, int y, int w) {
         else {
             adj.resize(x+1);
         }
-        V = adj.size();
     }
+    if(adj[x].empty()) V++;
+    if(adj[y].empty()) V++;
+    
     adj[x].push_back({y, w});
     adj[y].push_back({x, w});
     E++;
 }
 
 void GrafoPesato::stampa_adj() {
-    for (int i = 1; i < V; i++) {
+    for (int i = 1; i < adj.size(); i++) {
+        if(adj[i].empty()) continue; 
         cout << i << ": ";
         for (auto edge : adj[i]) {
             auto u = edge.first;
@@ -99,4 +102,46 @@ void GrafoPesato::add_weight(int x, int y) {
             break;
         }
     }
-};
+}
+
+int GrafoPesato::get_V() {
+    return V;
+}
+
+int GrafoPesato::get_E() {
+    return E;
+}
+
+vector<vector<pair<int,int>>> GrafoPesato::get_adj(){
+    return adj;
+}
+
+vector<int> GrafoPesato::costi_minimax(int u) {
+    vector<int> dist(adj.size(), INF);
+    dist[u] = 0;
+    priority_queue<pair<int,int>> pq;
+    pq.push({0, u});
+    vector<bool> visited(adj.size());
+
+    while(! pq.empty()) {
+        auto x = (pq.top()).second;
+        pq.pop();
+        if (visited[x]) continue;
+        visited[x] = true;
+        for (auto edge : adj[x]) {
+            auto y = edge.first;
+            if(visited[y]) continue;
+            auto w = edge.second;
+            int M;
+            if(w < dist[x]) {
+                M = dist[x];
+            }
+            else M = w;
+            if(M < dist[y] ){
+                dist[y] = M;
+                pq.push({-dist[y], y});
+            }
+        }
+    }
+    return dist;
+}

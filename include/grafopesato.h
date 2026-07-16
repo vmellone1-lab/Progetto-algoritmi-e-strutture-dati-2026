@@ -18,7 +18,10 @@ class GrafoPesato {
         void add_weight(int x, int y);
         void stampa_adj();
         vector<int> dijkstra(int source);
-
+        int get_V();
+        int get_E();
+        vector<vector<pair<int,int>>> get_adj();
+        vector<int> costi_minimax(int u);
     private:
         int V, E;
         static const int MAXN = INT16_MAX;
