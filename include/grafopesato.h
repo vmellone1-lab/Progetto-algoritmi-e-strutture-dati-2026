@@ -22,7 +22,9 @@ class GrafoPesato {
         int get_E();
         vector<vector<pair<int,int>>> get_adj();
         vector<int> costi_minimax(int u);
-        GrafoPesato cc_massima();
+        pair<GrafoPesato, vector<int>> cc_massima();
+        int conta_minimax(int u, int v,vector<bool>& visitato, int min);
+        void ridimensiona(int dim);    
     private:
         int V, E;
         static const int MAXN = INT16_MAX;

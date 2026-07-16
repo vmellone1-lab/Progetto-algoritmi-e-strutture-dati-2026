@@ -57,12 +57,16 @@ query sono:
 \item   \textbf{add\_weight} serve per definire i pesi 
         degli archi in funzione dei cammini BGP,
 \item   \textbf{cc\_massima} individua la componente connessa massima del grafico 
-        rindicizzando gli archi tramite una funzione similhash in modo da ottimizzare l'uso della memoria
+        rindicizzando gli archi tramite una funzione hash in modo da ottimizzare l'uso della memoria
 \item   \textbf{costi\_minimax} trova i costi di cammini minimi tra un
         dato nodo di partenza e restituisce il vettore contenente i costi.
         Il suo algoritmo si basa sullo scheletro dell'algoritmo 
         di dijkstra svolto a lezione il cui funzionamento 
         é garantito dalla dimostrazione al punto 4.
+\item   \textbf{conta\_minimax} é la funzione che conta i cammini
+        minimax, visto il suo costo elevato ho implementato anche
+        la funzione \textbf{ridimensiona} che permette di provarla
+        su un sottografo con nodi ridotti.
 \end{itemize}
 Per le prime due funzioni il costo di esecuzione é O(1). \\
 Il costo di \textbf{cc\_massima} è: O(M) dove M:= "id maggiore tra i nodi"
@@ -84,5 +88,10 @@ l'utilizzo delle due guardie visited[x] e visited[y] assicurache
 il push venga eseguito al più una sola volta per arco, perciò ho 
 al massimo E elementi in coda. Il costo
 totale é quindi O(V + ElogE).
+\\La funzione \textbf{conta\_minimax} é ricorsiva e ad ogni chiamata
+viene eseguita su tutti gli elementi della lista di adiacenza di un
+nodo, dato che però il cammino non può passare due volte per lo
+stesso nodo ho al massimo O(V!) cammini al caso pessimo, cioè
+se il grafo é completo e tutti i cammini hanno costo ottimo minimax.  
 
 \end{document}

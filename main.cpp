@@ -21,11 +21,11 @@ int main() {
         if(riga.empty() || riga.front() == '#') {
             continue;
         }
-     
+
         stringstream ss1(riga);
         getline(ss1, x, '|');
         getline(ss1, y, '|');
-        G.new_edge(stoi(x), stoi(y), 0); 
+        G.new_edge(stoi(x), stoi(y), 0);
     }
 
     ifstream fin2("19980101.all-paths");
@@ -50,10 +50,7 @@ int main() {
         }
     }
 
-    G = G.cc_massima(); 
-    G.stampa_adj();
+    auto T = G.cc_massima();
+    G = T.first;
+    auto hash = T.second;
 }
-
-
-
-

@@ -146,7 +146,7 @@ vector<int> GrafoPesato::costi_minimax(int u) {
     return dist;
 }
 
-GrafoPesato GrafoPesato::cc_massima() {
+pair<GrafoPesato, vector<int>> GrafoPesato::cc_massima() {
     vector<bool> visited(adj.size());
     vector<int> best;
 
@@ -192,5 +192,32 @@ GrafoPesato GrafoPesato::cc_massima() {
         }
     }
 
-    return T;
+    return {T, id};
+}
+
+int GrafoPesato::conta_minimax(int u, int v, vector<bool> &visitato, int min) {
+    if(u == v){
+        return 1;
+    }
+    int contatore = 0;
+    for(auto x : adj[u]) {
+        if(visitato[x.first] || x.second > min) continue; 
+        visitato[x.first] = true;
+        contatore += conta_minimax(x.first, v, visitato, min);
+        visitato[x.first] = false;
+    }
+    return contatore;
+}
+
+void GrafoPesato::ridimensiona(int dim) {
+    adj.resize(dim + 1);
+    for(int i = 1; i <= dim; i++) {
+        for (int j = 0; j < adj[i].size(); ) {
+            if (adj[i][j].first > dim) {
+                adj[i].erase(adj[i].begin() + j);
+            } else {
+                j++;
+            }
+        }
+    }
 }
