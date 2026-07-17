@@ -91,7 +91,9 @@ totale é quindi O(V + ElogE).
 \\La funzione \textbf{conta\_minimax} é ricorsiva e ad ogni chiamata
 viene eseguita su tutti gli elementi della lista di adiacenza di un
 nodo, dato che però il cammino non può passare due volte per lo
-stesso nodo ho al massimo O(V!) cammini al caso pessimo, cioè
-se il grafo é completo e tutti i cammini hanno costo ottimo minimax.  
+stesso nodo ho al massimo V! cammini al caso pessimo, cioè
+se il grafo é completo e tutti i cammini hanno costo ottimo minimax, e
+quindi, dato che ogni esecuzione ha costo O(1), il costo totale
+é O(V!).  
 
 \end{document}

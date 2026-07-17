@@ -64,6 +64,19 @@ void GrafoPesato::stampa_adj() {
     }
 }
 
+void GrafoPesato::stampa_adj(vector<int> &unhash) {
+    for (int i = 1; i < adj.size(); i++) {
+        if(adj[i].empty()) continue; 
+        cout << unhash[i-1] << ": ";
+        for (auto edge : adj[i]) {
+            auto u = edge.first;
+            auto w = edge.second;
+            cout << "(" << unhash[u-1] << ", " << w << ") ";
+        }
+        cout << endl;
+    }
+}
+
 vector<int> GrafoPesato::dijkstra(int source) {
     vector<int> dist(V, INF);
     dist[source] = 0;
@@ -146,7 +159,7 @@ vector<int> GrafoPesato::costi_minimax(int u) {
     return dist;
 }
 
-pair<GrafoPesato, vector<int>> GrafoPesato::cc_massima() {
+pair<GrafoPesato, pair<vector<int>,vector<int>>> GrafoPesato::cc_massima() {
     vector<bool> visited(adj.size());
     vector<int> best;
 
@@ -191,19 +204,19 @@ pair<GrafoPesato, vector<int>> GrafoPesato::cc_massima() {
             }
         }
     }
-
-    return {T, id};
+//la funzione inversa di id(i) é best(i-1)
+    return {T, {id, best}};
 }
 
-int GrafoPesato::conta_minimax(int u, int v, vector<bool> &visitato, int min) {
+int GrafoPesato::conta_minimax(int u, int v, vector<bool> &visitato, int costo) {
     if(u == v){
         return 1;
     }
     int contatore = 0;
     for(auto x : adj[u]) {
-        if(visitato[x.first] || x.second > min) continue; 
+        if(visitato[x.first] || x.second > costo) continue; 
         visitato[x.first] = true;
-        contatore += conta_minimax(x.first, v, visitato, min);
+        contatore += conta_minimax(x.first, v, visitato, costo);
         visitato[x.first] = false;
     }
     return contatore;
@@ -211,6 +224,7 @@ int GrafoPesato::conta_minimax(int u, int v, vector<bool> &visitato, int min) {
 
 void GrafoPesato::ridimensiona(int dim) {
     adj.resize(dim + 1);
+    V = dim;
     for(int i = 1; i <= dim; i++) {
         for (int j = 0; j < adj[i].size(); ) {
             if (adj[i][j].first > dim) {
@@ -220,4 +234,17 @@ void GrafoPesato::ridimensiona(int dim) {
             }
         }
     }
+}
+
+int GrafoPesato::costo(vector<int> &P) {
+    int C = 0;
+    for(int i = 0; i +1 < P.size() ; i++) {
+        for(auto k : adj[P[i]]) {
+            if(k.first == P[i+1]) {
+            C = max(C, k.second);
+            break;
+            } 
+        }
+    }
+    return C;
 }
