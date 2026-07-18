@@ -5,6 +5,7 @@
 
 #include<iostream>
 #include<vector>
+#include<fstream>
 
 using namespace std;
 
@@ -16,8 +17,8 @@ class GrafoPesato {
         void E_set(int e);
         void new_edge(int x, int y, int w);
         void add_weight(int x, int y);
-        void stampa_adj();
-        void stampa_adj(vector<int> &unhash);
+        void stampa_adj(ofstream &out);
+        void stampa_adj(vector<int> &unhash, ofstream& out);
         vector<int> dijkstra(int source);
         int get_V();
         int get_E();

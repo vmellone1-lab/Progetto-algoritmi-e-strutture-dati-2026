@@ -3,6 +3,7 @@
 #include <vector>
 #include <queue>
 #include <climits>
+#include<fstream>
 
 using namespace std;
 auto const INF = INT_MAX;
@@ -51,29 +52,29 @@ void GrafoPesato::new_edge(int x, int y, int w) {
     E++;
 }
 
-void GrafoPesato::stampa_adj() {
+void GrafoPesato::stampa_adj(ofstream &out) {
     for (int i = 1; i < adj.size(); i++) {
         if(adj[i].empty()) continue; 
-        cout << i << ": ";
+        out << i << ": ";
         for (auto edge : adj[i]) {
             auto u = edge.first;
             auto w = edge.second;
-            cout << "(" << u << ", " << w << ") ";
+            out << "(" << u << ", " << w << ") ";
         }
-        cout << endl;
+        out << endl;
     }
 }
 
-void GrafoPesato::stampa_adj(vector<int> &unhash) {
+void GrafoPesato::stampa_adj(vector<int> &unhash, ofstream& out) {
     for (int i = 1; i < adj.size(); i++) {
         if(adj[i].empty()) continue; 
-        cout << unhash[i-1] << ": ";
+        out << unhash[i-1] << ": ";
         for (auto edge : adj[i]) {
             auto u = edge.first;
             auto w = edge.second;
-            cout << "(" << unhash[u-1] << ", " << w << ") ";
+            out << "(" << unhash[u-1] << ", " << w << ") ";
         }
-        cout << endl;
+        out << endl;
     }
 }
 

@@ -1,9 +1,0 @@
-ciao mondo
------MENU-----
-1) Tabella di adiacenza con numero di archi e nodi
-2) Costo del cammino minimax ottimo tra due nodi
-3) Distribuzione delle frequenze sugli archi
-4) Numero di cammini BGP osservati di costo minimax 
-5) Numero di cammini di costo minimax ottimo di un sottografo
-6) Tempi di esecuzione degli algoritmi
-0) Interrompere l'esecuzione del programma
