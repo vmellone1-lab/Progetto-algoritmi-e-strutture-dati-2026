@@ -14,10 +14,21 @@ int main() {
 
     ofstream out("output.txt");
     GrafoPesato G;
+    
     ifstream fin1("19980101.as-rel.txt");
+    ifstream fin2("19980101.all-paths");
+    if(! fin1.is_open()) {
+        cout << "errore di apertura "  << endl;
+    }
+    if(! fin2.is_open()) {
+        cout << "errore di apertura "  << endl;
+    }
     string riga;
     string x;
     string y;
+
+    vector<pair<bool, double>> tempi(10, {0,0});
+    auto inizio = chrono::high_resolution_clock::now();
 
     while(getline(fin1, riga)) { //qua creo il grafo settando i pesi a zero
         if(riga.empty() || riga.front() == '#') {
@@ -30,13 +41,7 @@ int main() {
         G.new_edge(stoi(x), stoi(y), 0);
     }
 
-    ifstream fin2("19980101.all-paths");
-  
-    if(! fin2.is_open()) {
-        cout << "errore di apertura "  << endl;
-    }
-
-    string u;
+    string s;
     vector<pair<int,vector<int>>> obs;
 
     while(getline(fin2, riga)) {
@@ -45,19 +50,30 @@ int main() {
         getline(ss2, x, ' '); //così x contiene il cammino BGP
         stringstream sstemp(x);       
         vector<int> P;
-        while(getline(sstemp, u, '|')) {
-            P.push_back(stoi(u));
+        while(getline(sstemp, s, '|')) {
+            P.push_back(stoi(s));
         }
         obs.push_back({0, P});
         for(int i = 0; i +1 < P.size(); i++ ) {
             G.add_weight(P[i], P[i+1]);
         }
     }
+    
+    auto fine = chrono::high_resolution_clock::now();
+    chrono::duration<double, milli> durata = fine - inizio;
+    tempi[0] = {1, durata.count()};
+    
     for(int i = 0; i < obs.size(); i++) {
         obs[i].first = G.costo(obs[i].second);
     }
 
+
+    inizio = chrono::high_resolution_clock::now();
     auto T = G.cc_massima();
+    fine = chrono::high_resolution_clock::now();
+    durata = fine - inizio;
+    tempi[1] = {1, durata.count()};
+
     G = T.first;
     auto hash = T.second;
     auto adj = G.get_adj();
@@ -116,8 +132,12 @@ int main() {
             if(hash.first[v] == -1) {
                 cout << "Il nodo " << v << "non si trova nella componente connessa" << endl;
                 break;
-            } 
+            }
+            inizio = chrono::high_resolution_clock::now(); 
             out << "Il costo minimax ottimo tra " << u << " e " << v << " é " << G.costi_minimax(hash.first[u])[hash.first[v]] << endl;
+            fine = chrono::high_resolution_clock::now();
+            durata = fine - inizio;
+            tempi[2] = {1, durata.count()};
             break;
         }
         case 3: {
@@ -159,7 +179,7 @@ int main() {
         }
         case 5: {
             int dim = 1;
-            cout << "Inserire dimensione del sottografo (si consiglia non più di 100)" << endl;
+            cout << "Inserire dimensione del sottografo" << endl;
             cin >> dim;
             GrafoPesato E = G;
             E.ridimensiona(dim);
@@ -169,17 +189,37 @@ int main() {
             cin >> u;
             cout << "Inserire il nodo di arrivo: " << endl;
             cin >> v;
-            if(hash.first[u] == -1 || hash.first[u] > dim) {
-                cout << "Il nodo " << u << "non si trova nella componente connessa" << endl;
+            if(u > dim) {
+                cout << "Il nodo " << u << "non si trova nel sottografo" << endl;
                 break;
             }
-            if(hash.first[v] == -1 || hash.first[v] > dim) {
-                cout << "Il nodo " << v << "non si trova nella componente connessa" << endl;
+            if(v > dim) {
+                cout << "Il nodo " << v << "non si trova nel sottografo" << endl;
                 break;
             }
-            int costo = E.costi_minimax(hash.first[u])[hash.first[v]];
+            int costo = E.costi_minimax(u)[v];
             vector<bool> visitato(dim);
-            cout << "Il numero di cammini minimax ottimi tra " << u << " e " << v << " é " << E.conta_minimax(hash.first[u], hash.first[v], visitato, costo)  << endl;
+            inizio = chrono::high_resolution_clock::now();
+            out << "Il numero di cammini minimax ottimi tra " << u << " e " << v << " é " << E.conta_minimax(u, v, visitato, costo)  << endl;
+            fine = chrono::high_resolution_clock::now();
+            durata = fine - inizio;
+            tempi[3] = {1, durata.count()};
+            break;
+        }
+        case 6: {
+            out << " Tempi di esecuzione: " << endl;
+            out << "Tempo di lettura del grafo: " ;
+            if(tempi[0].first == 0) out << "non eseguito" << endl;
+            else out << tempi[0].second << " millisecondi" << endl;
+            out <<  "Tempo di costruzione componente connessa massima: ";
+            if(tempi[1].first == 0) out << "non eseguito" << endl;
+            else out << tempi[1].second << " millisecondi" << endl;
+            out << "Tempo di ricerca dell'ultimo costo minimax: ";
+            if(tempi[2].first == 0) out << "non eseguito" << endl;
+            else out << tempi[2].second << " millisecondi" << endl;
+            out << "Tempo di ricerca ultimo numero di cammini minimax: ";
+            if(tempi[3].first == 3) out << "non eseguito" << endl;
+            else out << tempi[3].second << " millisecondi" << endl;
             break;
         }
         default: {

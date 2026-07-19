@@ -230,6 +230,7 @@ void GrafoPesato::ridimensiona(int dim) {
         for (int j = 0; j < adj[i].size(); ) {
             if (adj[i][j].first > dim) {
                 adj[i].erase(adj[i].begin() + j);
+                if(i < j ) E--;
             } else {
                 j++;
             }
