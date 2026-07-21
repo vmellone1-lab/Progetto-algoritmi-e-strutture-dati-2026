@@ -207,7 +207,7 @@ int main() {
             break;
         }
         case 6: {
-            out << " Tempi di esecuzione: " << endl;
+            out << "Tempi di esecuzione: " << endl;
             out << "Tempo di lettura del grafo: " ;
             if(tempi[0].first == 0) out << "non eseguito" << endl;
             else out << tempi[0].second << " millisecondi" << endl;
@@ -218,7 +218,7 @@ int main() {
             if(tempi[2].first == 0) out << "non eseguito" << endl;
             else out << tempi[2].second << " millisecondi" << endl;
             out << "Tempo di ricerca ultimo numero di cammini minimax: ";
-            if(tempi[3].first == 3) out << "non eseguito" << endl;
+            if(tempi[3].first == 0) out << "non eseguito" << endl;
             else out << tempi[3].second << " millisecondi" << endl;
             break;
         }
