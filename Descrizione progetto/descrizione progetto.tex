@@ -71,7 +71,7 @@ query sono:
 Per le prime due funzioni il costo di esecuzione é O(1). \\
 Il costo di \textbf{cc\_massima} è: O(M) dove M:= "id maggiore tra i nodi"
 per la creazione di visited.
-il ciclo for visita una volta ogni nodo grazie al vettore visited, 
+Il ciclo for visita una volta ogni nodo grazie al vettore visited, 
 e anche i confonti tra le dimensioni delle componenti non aumentano
 la complessità. Il costo della creazione e della rindicizzazione 
 tramite il vettore id é sempre O(M), infine l'inserimento degli
@@ -83,17 +83,18 @@ Il ciclo while esegue un .pop alla coda che costa log(dimensione
  della coda) 
 e viene eseguito finché la coda non é vuota. Il numero massimo di 
 elementi all'interno della coda, che é uguale al numero massimo 
-di push che vengono eseguiti, è uguale al numero degli archi E: 
-l'utilizzo delle due guardie visited[x] e visited[y] assicurache 
-il push venga eseguito al più una sola volta per arco, perciò ho 
-al massimo E elementi in coda. Il costo
-totale é quindi O(V + ElogE).
+di push che vengono eseguiti, è uguale al numero dei nodi V: 
+l'utilizzo delle due guardie visited[x] e visited[y] assicura che 
+il push venga eseguito al più una sola volta per nodo, perciò ho 
+al massimo V elementi in coda. All'interno del ciclo for viene eseguito
+al caso peggiore un .push per ogni iterazione, che anche questo costa log(V).
+Il costo totale é quindi O((V + E)logV).
 \\La funzione \textbf{conta\_minimax} é ricorsiva e ad ogni chiamata
 viene eseguita su tutti gli elementi della lista di adiacenza di un
 nodo, dato che però il cammino non può passare due volte per lo
 stesso nodo ho al massimo V! cammini al caso pessimo, cioè
-se il grafo é completo e tutti i cammini hanno costo ottimo minimax, e
-quindi, dato che ogni esecuzione ha costo O(1), il costo totale
+se il grafo é completo e tutti i cammini hanno costo ottimo minimax.
+Quindi, dato che ogni esecuzione ha costo O(1), il costo totale
 é O(V!).  
 
 \end{document}
