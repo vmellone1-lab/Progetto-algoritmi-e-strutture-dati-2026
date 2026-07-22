@@ -196,7 +196,7 @@ pair<GrafoPesato, pair<vector<int>,vector<int>>> GrafoPesato::cc_massima() {
     for (int i = 0; i < best.size(); i++)
         id[best[i]] = i + 1;
 
-    GrafoPesato T(best.size() + 1, 0);
+    GrafoPesato T;
 
     for (int u : best) {
         for (auto v : adj[u]) {
