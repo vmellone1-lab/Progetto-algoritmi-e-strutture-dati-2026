@@ -130,6 +130,7 @@ vector<vector<pair<int,int>>> GrafoPesato::get_adj(){
     return adj;
 }
 
+
 vector<int> GrafoPesato::costi_minimax(int u) {
     vector<int> dist(adj.size(), INF);
     dist[u] = 0;
@@ -209,13 +210,29 @@ pair<GrafoPesato, pair<vector<int>,vector<int>>> GrafoPesato::cc_massima() {
     return {T, {id, best}};
 }
 
+bool GrafoPesato::raggiungibile(int u, int v, vector<bool>& visited, int costo) {
+    if (u == v) return true;
+
+    visited[u] = true;
+
+    for (auto  edge : adj[u]) {
+        if (visited[edge.first]) continue;
+        if (edge.second > costo) continue;
+        if (raggiungibile(edge.first, v, visited,costo))
+            return true;
+    }
+
+    visited[u] = false;
+    return false;
+}
+
 int GrafoPesato::conta_minimax(int u, int v, vector<bool> &visitato, int costo) {
     if(u == v){
         return 1;
     }
     int contatore = 0;
     for(auto x : adj[u]) {
-        if(visitato[x.first] || x.second > costo) continue; 
+        if(visitato[x.first] || x.second > costo || !raggiungibile(x.first, v, visitato, costo)) continue; 
         visitato[x.first] = true;
         contatore += conta_minimax(x.first, v, visitato, costo);
         visitato[x.first] = false;
@@ -250,3 +267,4 @@ int GrafoPesato::costo(vector<int> &P) {
     }
     return C;
 }
+

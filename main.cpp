@@ -197,8 +197,8 @@ int main() {
                 cout << "Il nodo " << v << "non si trova nel sottografo" << endl;
                 break;
             }
-            int costo = E.costi_minimax(u)[v];
             vector<bool> visitato(dim);
+            int costo = E.costi_minimax(u)[v];
             inizio = chrono::high_resolution_clock::now();
             out << "Il numero di cammini minimax ottimi tra " << u << " e " << v << " é " << E.conta_minimax(u, v, visitato, costo)  << endl;
             fine = chrono::high_resolution_clock::now();

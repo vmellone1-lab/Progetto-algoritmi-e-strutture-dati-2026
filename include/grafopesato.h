@@ -25,6 +25,7 @@ class GrafoPesato {
         vector<vector<pair<int,int>>> get_adj();
         vector<int> costi_minimax(int u);
         pair<GrafoPesato, pair<vector<int>,vector<int>>> cc_massima();
+        bool raggiungibile(int u, int v, vector<bool>& visited, int costo);
         int conta_minimax(int u, int v,vector<bool>& visitato, int costo);
         void ridimensiona(int dim);
         int costo(vector<int> &P);    
